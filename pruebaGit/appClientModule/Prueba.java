@@ -16,7 +16,20 @@ class Fibonacci{
 	}
 	private void init(){
 		System.out.println("son "+nElem+" elementos");
+		System.out.println("Resul: "+recur(nElem));
 	}
+	public int recur(int n){
+		if(n==1){
+			return 1;
+		}
+		if(n==2){
+			return 1;
+		}
+		else{
+			return recur(n-1) + recur(n-2);
+		}
+	}
+	
 }
 		
 public class Prueba {
