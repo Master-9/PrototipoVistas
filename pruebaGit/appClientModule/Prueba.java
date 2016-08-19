@@ -5,18 +5,24 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Vector;
 
 class Fibonacci{
 	private int nElem;
-	private ArrayList <Integer> elems;
+	private Vector <Integer> elems;
 	
 	public Fibonacci(int nElem){
 		this.nElem= nElem;
+		elems= new Vector <>();
+		elems.ensureCapacity(nElem);
+		for(int i=0;i<nElem;i++){
+			elems.add(new Integer(-1));
+		}
 		init();
 	}
 	private void init(){
 		System.out.println("son "+nElem+" elementos");
-		System.out.println("Resul: "+recur(nElem));
+		System.out.println("Resul: "+dinamica(nElem));
 	}
 	public int recur(int n){
 		if(n==1){
@@ -27,6 +33,27 @@ class Fibonacci{
 		}
 		else{
 			return recur(n-1) + recur(n-2);
+		}
+	}
+	
+	public int dinamica(int n){
+		if(n==1){
+			return 1;
+		}
+		if(n==2){
+			return 1;
+		}
+		else{
+			int menosUno= elems.get(n-2);
+			int menosDos= elems.get(n-3);
+			if (menosUno== -1){
+				menosUno= dinamica(n-1);
+			}
+			if (menosDos== -1){
+				menosDos= dinamica(n-2);
+			}
+			elems.set(n-1,menosUno + menosDos);
+			return elems.get(n-1);
 		}
 	}
 	
@@ -46,8 +73,7 @@ public class Prueba {
 
 		for(byte i=0;i<z;i++){
 	        casos.add(new Fibonacci(i + 3));  
-		}
-		        
+		}		        
 		//casos.stream().forEach((a) -> {     //usando programacion funcional
 			//a.solve();
 		//});
@@ -55,9 +81,6 @@ public class Prueba {
 		System.out.println("Success");
 	}
 		    
-		
-		
-		
 		// TODO Auto-generated method stub
 
 	/* (non-Java-doc)
